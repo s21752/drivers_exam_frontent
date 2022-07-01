@@ -5,3 +5,13 @@
 .greetings {
     padding-top: 20px;
 }
+
+.left-picture {
+    height: 300px;
+    padding-bottom: 15px;
+}
+
+.right-picture {
+    padding-top: 20px;
+    height: 330px;
+}
