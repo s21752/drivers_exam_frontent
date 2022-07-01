@@ -1,0 +1,21 @@
+body { margin: 0; padding: 0; }
+
+.nav-header {
+    flex: 0 1 auto;
+}
+
+.main-content {
+    flex: 1 1 auto;
+}
+
+.main-footer {
+    flex: 0 1 auto;
+}
+
+.page-container {
+    padding: unset;
+    margin: unset;
+    height: 100vh;
+    flex-direction: column;
+    display: flex;
+}

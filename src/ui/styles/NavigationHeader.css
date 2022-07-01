@@ -1,0 +1,22 @@
+.page-link {
+    margin: 0 10px;
+}
+
+.app-name {
+    padding-left: 12px;
+}
+
+.header-content {
+    background-color: darkolivegreen;
+}
+
+.nav-content {
+    width: 50vw;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.nav-container {
+    text-align: center;
+}
