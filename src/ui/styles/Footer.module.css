@@ -1,0 +1,22 @@
+.mainFooter {
+    color: black;
+    background-color: darkolivegreen;
+    text-align: center;
+    padding-bottom: 10px;
+    flex: 0 1 auto;
+}
+
+.authorInfoDivider {
+    height: 2px;
+    margin: 8px 30% 0;
+    background-color: #3c4b26;
+
+}
+
+.authorInfo {
+    margin: 8px 0 12px;
+}
+
+.dividerMargin {
+    height: 1px;
+}

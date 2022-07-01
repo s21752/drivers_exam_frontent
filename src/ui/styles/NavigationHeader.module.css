@@ -1,0 +1,43 @@
+.pageLink {
+    margin: 0 10px;
+}
+
+.appName {
+    padding: 24px;
+    background-color: #475a28;
+    margin: unset;
+    color: white;
+}
+
+.headerContent {
+    background-color: #a18524;
+}
+
+.linkDivider {
+    width: 2px;
+    height: 42px;
+    margin-top: 8px;
+    background-color: #9a7d16;
+}
+
+.navDivider {
+    background-color: #3c4b26;
+    height: 4px;
+    margin: unset;
+}
+
+.bottom {
+    background-color: #8a7015;
+    height: 2px;
+}
+
+.navContent {
+    width: 50vw;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.navContainer {
+    text-align: center;
+}

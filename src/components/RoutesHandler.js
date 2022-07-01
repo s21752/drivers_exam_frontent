@@ -1,4 +1,4 @@
-import '../ui/styles/RoutesHandler.css'
+import styles from '../ui/styles/RoutesHandler.module.css'
 import {useRoutes} from "react-router";
 import {Exam, Home, PageNotFound, Practice, QuestionsEdit} from "../pages";
 
@@ -11,7 +11,7 @@ export default function RoutesHandler() {
         {path: "*", element: <PageNotFound/>},
     ]);
 
-    return <div class='content'>
+    return <div className={styles.content}>
         {element}
     </div>;
 }

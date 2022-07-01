@@ -1,0 +1,16 @@
+.content {
+    text-align: center;
+    color: rgba(42,41,43,0.99);
+}
+
+.picture {
+    height: 250px;
+}
+
+.topText {
+    margin-bottom: 0;
+}
+
+.bottomText {
+    margin-top: -10px;
+}

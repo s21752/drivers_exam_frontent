@@ -1,18 +1,17 @@
-body { margin: 0; padding: 0; }
 
-.nav-header {
+.navHeader {
     flex: 0 1 auto;
 }
 
-.main-content {
+.mainContent {
     flex: 1 1 auto;
 }
 
-.main-footer {
+.mainFooter {
     flex: 0 1 auto;
 }
 
-.page-container {
+.pageContainer {
     padding: unset;
     margin: unset;
     height: 100vh;

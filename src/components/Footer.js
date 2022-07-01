@@ -1,12 +1,12 @@
-import '../ui/styles/Footer.css';
+import styles from '../ui/styles/Footer.module.css';
 
 export default function Footer() {
 
     return <>
-        <div class="main-footer">
-            <div class="divider-margin"/>
-            <hr class="author-info-divider"/>
-            <h3>&copy;{new Date().getFullYear()} Cezary Graban | s21752 </h3>
+        <div className={styles.mainFooter}>
+            <div className={styles.dividerMargin}/>
+            <div className={styles.authorInfoDivider}/>
+            <h3 className={styles.authorInfo}>&copy;{new Date().getFullYear()} Cezary Graban | s21752 </h3>
         </div>
     </>
 }

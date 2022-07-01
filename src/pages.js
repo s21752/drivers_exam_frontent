@@ -1,13 +1,12 @@
 import {useLocation} from "react-router-dom";
 import HomeScreen from "./components/HomeScreen";
+import PageNotFoundScreen from "./components/PageNotFoundScreen";
 
 export function PageNotFound() {
     let location = useLocation();
 
     return (
-        <div>
-            <h1>Nie znaleziono elementu: {location.pathname}</h1>
-        </div>
+        <PageNotFoundScreen path={location.pathname}/>
     )
 }
 
