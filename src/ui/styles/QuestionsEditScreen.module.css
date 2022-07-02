@@ -1,0 +1,7 @@
+.content {
+    flex: 1 1 auto;
+    display: flex;
+    height: 90%;
+    position: relative;
+    flex-direction: column;
+}
