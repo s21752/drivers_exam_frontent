@@ -20,6 +20,11 @@
     justify-content: center;
 }
 
+.addQuestionButton {
+    margin-top: 24px;
+    height: 40px;
+}
+
 .paginationItem {
     background: #fff;
     border: 2px solid #666;

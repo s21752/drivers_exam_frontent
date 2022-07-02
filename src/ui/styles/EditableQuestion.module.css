@@ -7,8 +7,15 @@ h3 {
 }
 
 .mainDiv {
+    display: flex;
     background-color: white;
     padding: 12px 12px;
+}
+
+.questionContent {
+    margin: unset;
+    padding: 10px;
+    flex: 1 1 auto;
 }
 
 .mainDiv:hover {

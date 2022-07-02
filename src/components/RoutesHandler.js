@@ -1,6 +1,6 @@
 import styles from '../ui/styles/RoutesHandler.module.css'
 import {useRoutes} from "react-router";
-import {Exam, Home, PageNotFound, Practice, QuestionsEdit, SingleQuestionEdit} from "../pages";
+import {AddNewQuestionPage, Exam, Home, PageNotFound, Practice, QuestionsEdit, SingleQuestionEdit} from "../pages";
 
 export default function RoutesHandler() {
     let element = useRoutes([
@@ -8,6 +8,7 @@ export default function RoutesHandler() {
         {path: "exam", element: <Exam/>},
         {path: "practice", element: <Practice/>},
         {path: "edit", element: <QuestionsEdit/>},
+        {path: "edit/new", element: <AddNewQuestionPage/>},
         {path: "edit/*", element: <SingleQuestionEdit/>},
         {path: "*", element: <PageNotFound/>},
     ]);

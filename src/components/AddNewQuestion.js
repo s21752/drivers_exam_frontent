@@ -1,21 +1,14 @@
 import {useEffect, useState} from "react";
-import {Question} from "../data/model/Question";
 import styles from '../ui/styles/QuestionAddEditionScreen.module.css'
 import {useNavigate} from "react-router";
 
-const getByIdUrl = 'https://localhost:7221/api/Questions/GetById?questionId='
-const updateQuestionUrl = 'https://localhost:7221/api/Questions/Update'
+const createNewQuestionUrl = 'https://localhost:7221/api/Questions/Create'
 
-export default function QuestionEditionScreen(props) {
-
-    const currentUrl = getByIdUrl + props.questionId
-    const [question, setQuestion] = useState(null)
-
+export default function AddNewQuestion() {
     const [inputs, setInputs] = useState({})
-
     const [goBack, setGoBack] = useState(false)
-    const [answersQuantity, setAnswersQuantity] = useState(question?.allAnswers.length || 2)
-    const [checkIndex, setCheckIndex] = useState(question?.allAnswers.indexOf(question.correctAnswer))
+    const [answersQuantity, setAnswersQuantity] = useState(2)
+    const [checkIndex, setCheckIndex] = useState(-1)
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -36,38 +29,34 @@ export default function QuestionEditionScreen(props) {
     }, [goBack])
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-
         const imageUrl = inputs.imageUrl || null
         const content = inputs.questionContent || null
-        let changedAnswers = []
-        let answersChanged = false
+        let addedAnswers = []
         for (let i = 0; i < answersQuantity; i++) {
             let name = `answer${i}`
             let answer = inputs[name]
-            if (answer !== null && answer && answer !== "" && answer !== undefined) {
-                answersChanged = true
-                changedAnswers.push(answer)
-            } else {
-                changedAnswers.push(question.allAnswers[i])
+            if (answer !== null && answer && answer !== "") {
+                addedAnswers.push(answer)
             }
         }
 
-        if (answersQuantity < question?.allAnswers.length) {
-            answersChanged = true
+        const correctAnswer = addedAnswers[checkIndex]
+
+        if (correctAnswer === undefined || content === null || content === "" || correctAnswer === null || correctAnswer === "" || addedAnswers.length < 2) {
+            // nothing
+            return false
+        } else {
+            event.preventDefault()
         }
-        const correctAnswer = changedAnswers[checkIndex]
 
         let updateObject = {
-            Id: question?.questionId,
             Content: content,
             CorrectAnswer: correctAnswer,
             ImageUrl: imageUrl,
-            Answers: answersChanged ? changedAnswers : null
+            Answers: addedAnswers
         }
 
         let data = new FormData()
-        data.append("Id", updateObject.Id)
         if (updateObject.Content !== null)
             data.append("Content", updateObject.Content)
 
@@ -79,15 +68,15 @@ export default function QuestionEditionScreen(props) {
 
         updateObject.Answers?.forEach((string) => {
             if (string !== "" && string !== "null")
-                data.append("Answers", string)
+                data.append("AllAnswers", string)
         })
 
-        fetch(updateQuestionUrl, {
-            method: "PATCH",
+        fetch(createNewQuestionUrl, {
+            method: "POST",
             body: data
         }).then((response) => {
             if (response.ok) return
-            throw new Error(`something went wrong while updating question`)
+            throw new Error(`something went wrong while adding new question`)
         }).then(() => {
             setGoBack(true)
         })
@@ -101,19 +90,7 @@ export default function QuestionEditionScreen(props) {
         setAnswersQuantity((quantity) => quantity - 1)
     }
 
-    useEffect(() => {
-        fetch(currentUrl)
-            .then((response) => {
-                if (response.ok) return response.json()
-                throw new Error(`something wrong while requesting question with id ${props.questionId}`)
-            }).then((question) => {
-            setCheckIndex(question?.allAnswers.indexOf(question.correctAnswer))
-            setQuestion(new Question(question.content, question.allAnswers, question.correctAnswer, question.imageUrl, question.questionId))
-            setAnswersQuantity(question.allAnswers.length)
-        })
-    }, [])
-
-    let image = inputs.imageUrl || question?.imageUrl
+    let image = inputs.imageUrl
 
     return (
         <div className={styles.content}>
@@ -121,9 +98,10 @@ export default function QuestionEditionScreen(props) {
                 <label><h3>Treść pytania:</h3>
                     <textarea
                         name="questionContent"
-                        placeholder={question?.content}
+                        placeholder="Treść pytania"
                         value={inputs.questionContent || ""}
                         onChange={handleChange}
+                        required
                     />
                 </label><br/><br/><br/>
                 <label><h3>Adres url do obrazka:</h3>
@@ -131,13 +109,13 @@ export default function QuestionEditionScreen(props) {
                         className={styles.imageUrlText}
                         type="text"
                         name="imageUrl"
-                        placeholder={question?.imageUrl}
+                        placeholder="opcjonalny adres do zdjęcia"
                         value={inputs.imageUrl || ""}
                         onChange={handleChange}
                     />
                 </label><br/>
-                {image !== null && image !== "" && image !== "null" ? <img className={styles.image} src={image}/> :
-                    <div/>}<br/><br/>
+                {image !== undefined && image !== null && image !== "" && image !== "null" ? <img className={styles.image} src={image}/> :
+                    <div className={styles.noHeight}/>}<br/><br/>
                 <h3>Wszystkie odpowiedzi:</h3>
                 {new Array(answersQuantity).fill().map((_, index) => {
                     const name = `answer${index}`
@@ -147,10 +125,10 @@ export default function QuestionEditionScreen(props) {
                             <label><div className={styles.answerTitle}>Odpowiedź nr : {index + 1}</div>
                                 <textarea
                                     name={name}
-                                    placeholder={question?.allAnswers[index]}
+                                    placeholder="Treść odpowiedzi"
                                     value={answerValue}
                                     onChange={handleChange}
-                                    required={true}
+                                    required
                                 />
                             </label>
                             <label className={styles.correctAnswerTitle}>Prawidłowa:
@@ -160,19 +138,19 @@ export default function QuestionEditionScreen(props) {
                                 }} type="radio" name="correctAnswer"
                                        value={answerValue}
                                        checked={index === checkIndex}
+                                       required
                                 /></label><br/>
                         </div>
                     )
                 })}
                 <br/>
-            </form>
-
-            <button onClick={handleAddAnswer}>Dodaj odpowiedź</button>
-            {answersQuantity > 2 ?
-                <button onClick={handleRemoveLastAnswer}>Usuń ostatnią odpowiedź</button> : <div/>}
             <br/><br/><input onClick={handleSubmit} type="submit"/>
             <br/><br/>
-            <button onClick={() => setGoBack(true)}>Wróć do listy</button>
+            </form>
+            <button onClick={handleAddAnswer}>Dodaj dodatkową opcje odpowiedzi</button>
+            {answersQuantity > 2 ?
+                <button onClick={handleRemoveLastAnswer}>Usuń ostatnią odpowiedź</button> : <div/>}
+            <button className={styles.goBackButton} onClick={() => setGoBack(true)}>Wróć do listy</button>
         </div>
     )
 }

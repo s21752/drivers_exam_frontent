@@ -1,15 +1,42 @@
 import {useEffect, useState} from "react";
 import styles from '../ui/styles/QuestionsPaginatedList.module.css'
 import {Question} from "../data/model/Question";
+import {useNavigate} from "react-router";
 
 const paginatedQuestionsUrl = 'https://localhost:7221/api/Questions/GetPaginated'
+const questionsQuantityUrl = 'https://localhost:7221/api/Questions/GetCount'
 
-export default function QuestionsPaginatedList({dataLength, RenderComponent, maxPages, itemsPerPage}) {
-    const pages = Math.ceil(dataLength / itemsPerPage)
+export default function QuestionsPaginatedList({RenderComponent, maxPages, itemsPerPage}) {
     const [currentPage, setCurrentPage] = useState(1)
     const [questions, setQuestions] = useState([])
+    const [refresh, setRefresh] = useState(false)
+    const [currentDataLength, setCurrentDataLength] = useState(0)
+    const [goToNewQuestion, setGoToNewQuestion] = useState(false)
+
+    const pages = Math.ceil(currentDataLength / itemsPerPage)
 
     const currentUrl = `${paginatedQuestionsUrl}?pageSize=${itemsPerPage}&pageIndex=${currentPage - 1}`
+
+    let navigate = useNavigate()
+    useEffect(() => {
+        const goToAddQuestion = () => {
+            navigate("/edit/new")
+        }
+
+        if (goToNewQuestion)
+            goToAddQuestion()
+    }, [goToNewQuestion])
+
+    useEffect(() => {
+        fetch(questionsQuantityUrl)
+            .then((response) => {
+                if (response.ok) return response.json()
+                throw new Error('something wrong while requesting questions quantity')
+            }).then((quantity) => {
+            console.log(`Questions quantity is ${quantity}`)
+            setCurrentDataLength(Number(quantity))
+        })
+    }, [refresh])
 
     useEffect(() => {
         fetch(currentUrl)
@@ -21,7 +48,7 @@ export default function QuestionsPaginatedList({dataLength, RenderComponent, max
 
             setQuestions(questions.map((obj) => new Question(obj.content, obj.allAnswers, obj.correctAnswer, obj.imageUrl, obj.questionId)))
         })
-    }, [currentPage])
+    }, [currentPage, refresh])
 
     function goToNextPage() {
         setCurrentPage((page) => page + 1)
@@ -45,17 +72,18 @@ export default function QuestionsPaginatedList({dataLength, RenderComponent, max
     };
 
     return <div className={styles.mainDiv}>
-        <h1>Wszyskie pytania ({dataLength})</h1>
+        <button className={styles.addQuestionButton } onClick={() => setGoToNewQuestion(true)}>Add new question</button>
+        <h1>Wszyskie pytania ({currentDataLength})</h1>
         <div className={styles.content}>
             <div className={styles.dataContainer}>
                 {questions.map((question, index) => (
-                    <RenderComponent key={index} data={question}/>
+                    <RenderComponent key={index} data={question} refreshHandle={setRefresh}/>
                 ))}
             </div>
             <div className={styles.pagination}>
                 <button
                     onClick={goToPreviousPage}
-                    className={`${styles.prev} ${currentPage === 1 ? styles.disabled : ''}`}
+                    className={`${styles.prev} ${currentPage === 1 || currentDataLength === 0 ? styles.disabled : ''}`}
                 >
                     prev
                 </button>
@@ -70,15 +98,11 @@ export default function QuestionsPaginatedList({dataLength, RenderComponent, max
                 ))}
                 <button
                     onClick={goToNextPage}
-                    className={`${styles.next} ${currentPage === pages ? styles.disabled : ''}`}
+                    className={`${styles.next} ${currentPage === pages || currentDataLength === 0 ? styles.disabled : ''}`}
                 >
                     next
                 </button>
             </div>
         </div>
     </div>
-}
-
-function logDataFetch(dataJson) {
-    console.log(`Parsed ${JSON.stringify(dataJson)}`)
 }

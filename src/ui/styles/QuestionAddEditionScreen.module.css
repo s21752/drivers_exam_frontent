@@ -24,3 +24,11 @@ textarea {
     margin-left: 36px;
     margin-bottom: 8px;
 }
+
+.goBackButton {
+    margin-top: 24px;
+}
+
+.noHeight {
+    height: 0;
+}

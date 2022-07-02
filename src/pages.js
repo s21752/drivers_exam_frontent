@@ -3,11 +3,18 @@ import HomeScreen from "./components/HomeScreen";
 import PageNotFoundScreen from "./components/PageNotFoundScreen";
 import QuestionsEditScreen from "./components/QuestionsEditScreen";
 import QuestionEditionScreen from "./components/QuestionEditionScreen";
+import AddNewQuestion from "./components/AddNewQuestion";
 
 export function PageNotFound() {
     let location = useLocation();
 
     return <PageNotFoundScreen path={location.pathname}/>
+}
+
+export function AddNewQuestionPage() {
+    return (
+        <AddNewQuestion/>
+    )
 }
 
 export function Exam() {
