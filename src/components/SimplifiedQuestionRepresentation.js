@@ -7,8 +7,8 @@ export default function SimplifiedQuestionRepresentation(props) {
         <div className={`${simplifiedQuestion.userAnswer === simplifiedQuestion.correctAnswer ? styles.correct : styles.incorrect} ${styles.mainDive}`}>
             <div className={styles.question}>Pytanie {simplifiedQuestion.index + 1}.) {simplifiedQuestion.content}</div>
             <div className={styles.answers}>
-                <div>Poprawna: {simplifiedQuestion.correctAnswer}</div>
-                <div>Udzielona: {simplifiedQuestion.userAnswer}</div>
+                <div>Poprawna odpowiedź: {simplifiedQuestion.correctAnswer}</div>
+                <div>Udzielona odpowiedź: {simplifiedQuestion.userAnswer}</div>
             </div>
         </div>
             )

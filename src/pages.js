@@ -5,6 +5,7 @@ import EditScreenContent from "./components/EditScreenContent";
 import QuestionEditionScreen from "./components/QuestionEditionScreen";
 import AddNewQuestion from "./components/AddNewQuestion";
 import ExamScreenContent from "./components/ExamScreenContent";
+import PracticeScreenContent from "./components/PracticeScreenContent";
 
 export function PageNotFound() {
     let location = useLocation();
@@ -25,9 +26,7 @@ export function Exam() {
 }
 
 export function Practice() {
-    return <div>
-        <h1>Practice screen</h1>
-    </div>
+    return <PracticeScreenContent/>
 }
 
 export function QuestionsEdit() {

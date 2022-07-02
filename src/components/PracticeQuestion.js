@@ -1,34 +1,32 @@
 import styles from "../ui/styles/QuestionAddEditionScreen.module.css";
 
-export default function ExamQuestion(props) {
+export default function PracticeQuestion(props) {
 
     let state = props.state
     let mainDispatch = props.dispatcher
 
-    let question = state?.questions[state.currentIndex]
+    let currentQuestion = state?.question
 
-    let image = question?.imageUrl
+    let image = currentQuestion?.imageUrl
 
     const handleAnswer = (event) => {
-        let currentAnswer = state.answers[state.currentIndex]
+        let currentAnswer = state.answer
         if (currentAnswer !== null && currentAnswer !== "" && currentAnswer !== undefined) {
             event.preventDefault()
 
-            mainDispatch({type: "HANDLE_ANSWER"})
+            mainDispatch({type: "RESULTS", question: currentQuestion})
         }
     }
 
-    let leftQuestions = Math.min(state.questions.length, state.questions.length) - state.currentIndex
-
 
     return <div className={styles.mainDiv}>
-        <h1 className={styles.question}>{question?.content}</h1>
+        <h1 className={styles.question}>{currentQuestion?.content}</h1>
         <form>
             {image !== null && image !== "" && image !== "null" ? <img className={styles.image} src={image}/> :
                 <div/>}
 
 
-            {question?.allAnswers.map((answer, index) => {
+            {currentQuestion?.allAnswers.map((answer, index) => {
                 const name = `answer${index}`
                 const answerValue = answer
 
@@ -41,7 +39,7 @@ export default function ExamQuestion(props) {
                                    type="radio"
                                    name="userAnswer"
                                    value={answerValue}
-                                   checked={answerValue === state.answers[state.currentIndex]}
+                                   checked={answerValue === state.answer}
                                    required
                             /></label><br/>
                     </div>
@@ -49,7 +47,7 @@ export default function ExamQuestion(props) {
             })}
 
             <button className={styles.saveAnswerButton}
-                    onClick={handleAnswer}>{leftQuestions === 1 ? "Zakończ egzamin" : "Zapisz odpowiedź"}</button>
+                    onClick={handleAnswer}>Sprawdź odpowiedź</button>
         </form>
     </div>
 }
