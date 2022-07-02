@@ -72,7 +72,7 @@ export default function QuestionsPaginatedList({RenderComponent, maxPages, items
     };
 
     return <div className={styles.mainDiv}>
-        <button className={styles.addQuestionButton } onClick={() => setGoToNewQuestion(true)}>Add new question</button>
+        <button className={styles.addQuestionButton } onClick={() => setGoToNewQuestion(true)}>+ Dodaj pytanie +</button>
         <h1>Wszyskie pytania ({currentDataLength})</h1>
         <div className={styles.content}>
             <div className={styles.dataContainer}>

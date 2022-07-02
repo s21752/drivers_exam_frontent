@@ -39,7 +39,7 @@ export default function EditableQuestion(props) {
                 } className={styles.questionContent}>{question.content}</h3>
                 <button onClick={() => {
                     setSendDeleteRequest(true)
-                }}>Delete question
+                }}>Usuń pytanie
                 </button>
             </div>
             <hr/>

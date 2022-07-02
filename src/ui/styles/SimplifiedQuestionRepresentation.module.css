@@ -1,0 +1,22 @@
+.question {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.correct {
+    background-color: rgba(83, 119, 71, 0.58);
+}
+
+.incorrect {
+    background-color: rgba(206, 58, 62, 0.58);
+
+}
+
+.mainDive {
+    padding: 4px;
+}
+
+.answers {
+padding-left: 24px;
+}
+

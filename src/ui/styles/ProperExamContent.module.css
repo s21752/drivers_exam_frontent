@@ -1,0 +1,32 @@
+.mainDiv {
+    margin: 0 36px;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+.topDiv {
+    display: flex;
+}
+
+.questionNumber, .questionsInfo {
+    margin-top: 12px;
+    font-size: 20px;
+}
+
+.filler {
+    flex: 1 1 auto;
+}
+
+.examQuestion {
+    flex: 1 1 auto;
+}
+
+.restartButton {
+    width: 150px;
+    height: 20px;
+    font-size: 12px;
+    alignment: center;
+    margin: 16px auto;
+}

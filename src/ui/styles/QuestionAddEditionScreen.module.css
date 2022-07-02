@@ -10,6 +10,10 @@
     margin-left: 32px;
 }
 
+.question {
+    margin-bottom: 36px;
+}
+
 textarea {
     width: 400px;
     margin-left: 20px;
@@ -29,6 +33,20 @@ textarea {
     margin-top: 24px;
 }
 
+.answerLabel {
+    font-size: 24px;
+    margin: 12px;
+}
+
+.saveAnswerButton {
+    margin-top: 18px;
+    height: 50px;
+    width: 250px;
+}
+
+.mainDiv {
+    height: 100%;
+}
 .noHeight {
     height: 0;
 }

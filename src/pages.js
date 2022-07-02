@@ -1,9 +1,10 @@
 import {useLocation} from "react-router-dom";
 import HomeScreen from "./components/HomeScreen";
 import PageNotFoundScreen from "./components/PageNotFoundScreen";
-import QuestionsEditScreen from "./components/QuestionsEditScreen";
+import EditScreenContent from "./components/EditScreenContent";
 import QuestionEditionScreen from "./components/QuestionEditionScreen";
 import AddNewQuestion from "./components/AddNewQuestion";
+import ExamScreenContent from "./components/ExamScreenContent";
 
 export function PageNotFound() {
     let location = useLocation();
@@ -19,9 +20,7 @@ export function AddNewQuestionPage() {
 
 export function Exam() {
     return (
-        <div>
-            <h1>Exam screen</h1>
-        </div>
+        <ExamScreenContent/>
     )
 }
 
@@ -32,7 +31,7 @@ export function Practice() {
 }
 
 export function QuestionsEdit() {
-    return <QuestionsEditScreen/>
+    return <EditScreenContent/>
 }
 
 export function SingleQuestionEdit() {

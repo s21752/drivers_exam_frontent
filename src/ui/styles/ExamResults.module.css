@@ -1,0 +1,25 @@
+.scoreTitle {
+    margin-left: 24px;
+}
+
+.scoreContainer {
+    margin-top: 64px;
+    text-align: center;
+}
+
+.score {
+
+}
+
+.centerDiv {
+    text-align: center;
+}
+
+.resultDetailsContainer {
+    margin: 24px 56px;
+}
+
+.restartButton {
+    alignment: center;
+    margin-bottom: 24px;
+}
